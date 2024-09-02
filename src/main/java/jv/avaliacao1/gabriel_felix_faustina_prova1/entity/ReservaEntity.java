@@ -49,7 +49,7 @@ public class ReservaEntity {
 		this.dataReserva = dto.getDataReserva();
 		this.numeroPessoas = dto.getNumeroPessoas();
 		this.numeroMesa = dto.getNumeroMesa();
-		this.status = (dto.getStatus() == null) ? StatusEnum.FEITA : dto.getStatus();
+		this.status = StatusEnum.FEITA;
 		this.cliente = clienteEntity;
 	}
 	

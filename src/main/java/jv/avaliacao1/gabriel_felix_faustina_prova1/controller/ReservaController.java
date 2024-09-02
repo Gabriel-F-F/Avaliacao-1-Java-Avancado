@@ -2,7 +2,7 @@ package jv.avaliacao1.gabriel_felix_faustina_prova1.controller;
 
 import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+//import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,12 +21,13 @@ public class ReservaController {
 	private ReservaService reservaService;
 	
 	@PostMapping
-	public ResponseEntity<Object> postReserva(@RequestBody ReservaDto reservaRequest) {
-		try {			
+	public /*ResponseEntity<Object>*/ ReservaDto postReserva(@RequestBody ReservaDto reservaRequest) {
+		return reservaService.postReserva(reservaRequest);
+/*		try {			
 			return ResponseEntity.ok(reservaService.postReserva(reservaRequest));
 		} catch (Exception e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+		return ResponseEntity.badRequest().body(e.getMessage());
+*/		
 	}
 	
 	@PutMapping("/{idReserva}")

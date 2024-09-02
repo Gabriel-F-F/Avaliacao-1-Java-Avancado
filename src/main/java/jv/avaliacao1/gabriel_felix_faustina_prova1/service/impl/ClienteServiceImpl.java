@@ -23,12 +23,7 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public ClienteEntity findClienteById(Long id) {
-		var cliente = clienteRepository.findById(id);
-		if (cliente.isPresent()) {
-			return cliente.get();
-		} else {
-			throw new IllegalArgumentException("Cliente não Existe!");
-		}
+		return clienteRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Cliente não Existe!"));
 	}
 
 	@Override

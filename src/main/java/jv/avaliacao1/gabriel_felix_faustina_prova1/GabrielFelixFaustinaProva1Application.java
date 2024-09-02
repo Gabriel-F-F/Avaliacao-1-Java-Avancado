@@ -9,5 +9,4 @@ public class GabrielFelixFaustinaProva1Application {
 	public static void main(String[] args) {
 		SpringApplication.run(GabrielFelixFaustinaProva1Application.class, args);
 	}
-
 }

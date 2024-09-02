@@ -1,7 +1,6 @@
 package jv.avaliacao1.gabriel_felix_faustina_prova1.dto;
 
 import java.time.LocalDate;
-
 import jv.avaliacao1.gabriel_felix_faustina_prova1.entity.ReservaEntity;
 import jv.avaliacao1.gabriel_felix_faustina_prova1.enuns.StatusEnum;
 import lombok.AllArgsConstructor;

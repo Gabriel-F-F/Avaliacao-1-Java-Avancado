@@ -22,30 +22,37 @@ public class ReservaServiceImpl implements ReservaService {
 	@Autowired
 	private ClienteService clienteService;
 
-	public void validaData(LocalDate dataReserva) {
+	private void validaData(LocalDate dataReserva) {
 		if (dataReserva.isBefore(LocalDate.now())) {
 			throw new DateTimeException("Data de Reserva Inválida!");
 		}
 	}
 
-	public void validaNumeroMesa(Integer numeroMesa) {
+	private void validaNumeroMesa(Integer numeroMesa) {
 		if (numeroMesa > 20 || numeroMesa < 1) {
 			throw new IllegalArgumentException("Só é possível reservar a entre a Mesa 1 a 20!");
 		}
 	}
 
-	public void validaNumeroPessoas(Integer numeroPessoas) {
+	private void validaNumeroPessoas(Integer numeroPessoas) {
 		if (numeroPessoas > 10 || numeroPessoas < 1) {
 			throw new IllegalArgumentException("É necessário entre 1 a 10 pessoas para reservar!");
 		}
 	}
 
-	public void validaCancelamento(StatusEnum status, LocalDate dataCancelamento) {
-		if (status.equals(StatusEnum.CANCELADA) && dataCancelamento.isBefore(LocalDate.now().plusDays(1))) {
+	private void validaCancelamento(ReservaDto dto, LocalDate dataCancelamento) {
+		if (dto.getStatus().equals(StatusEnum.CANCELADA) && !dataCancelamento.isBefore(dto.getDataReserva())) {
 			throw new DateTimeException("Data de Cancelamento Inválida!");
 		}
 	}
-
+// TODO
+	private void validaConcluido(ReservaDto dto, LocalDate dataConcluido) {
+		if (dto.getStatus().equals(StatusEnum.CONCLUIDA) && (dataConcluido.isAfter(LocalDate.now()))) {
+			throw new DateTimeException("Data de Conclusão Inválida!");
+		}
+	}
+	
+	//TODO transformar em List
 	@Override
 	public String verificaMesaPorData(Integer numeroMesa, LocalDate data) {
 		ReservaEntity reserva = reservaRepository.findReservaByNumeroMesa(numeroMesa);
@@ -60,7 +67,8 @@ public class ReservaServiceImpl implements ReservaService {
 		validaData(reservaRequest.getDataReserva());
 		validaNumeroMesa(reservaRequest.getNumeroMesa());
 		validaNumeroPessoas(reservaRequest.getNumeroPessoas());
-
+		// TODO verificar disponibilidade de mesa no dia do cadastro
+		
 		ClienteEntity clienteEntity = clienteService.findClienteById(reservaRequest.getIdCliente());
 
 		ReservaEntity reservaAdicionada = reservaRepository.save(new ReservaEntity(reservaRequest, clienteEntity));
@@ -72,7 +80,8 @@ public class ReservaServiceImpl implements ReservaService {
 		Optional<ReservaEntity> statusReserva = reservaRepository.findById(id);
 		if (statusReserva.isPresent()) {
 			ReservaEntity reserva = statusReserva.get();
-			validaCancelamento(reservaRequest.getStatus(), reserva.getDataReserva());
+			validaCancelamento(reservaRequest, reserva.getDataReserva());
+			validaConcluido(reservaRequest, reserva.getDataReserva());
 			reserva.putStatus(reservaRequest);
 			reservaRepository.save(reserva);
 		}
