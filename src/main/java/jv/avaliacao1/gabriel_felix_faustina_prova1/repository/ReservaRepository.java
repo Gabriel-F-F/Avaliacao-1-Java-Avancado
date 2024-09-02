@@ -1,5 +1,7 @@
 package jv.avaliacao1.gabriel_felix_faustina_prova1.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import jv.avaliacao1.gabriel_felix_faustina_prova1.entity.ReservaEntity;
@@ -8,5 +10,7 @@ import jv.avaliacao1.gabriel_felix_faustina_prova1.entity.ReservaEntity;
 public interface ReservaRepository extends JpaRepository<ReservaEntity, Long> {
 
 	ReservaEntity findReservaByNumeroMesa(Integer numeroMesa);
+	
+	List<ReservaEntity> findAllReservaByClienteId(Long id);
 
 }

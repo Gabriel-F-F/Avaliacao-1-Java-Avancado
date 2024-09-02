@@ -9,6 +9,7 @@ import jv.avaliacao1.gabriel_felix_faustina_prova1.dto.ReservaDto;
 import jv.avaliacao1.gabriel_felix_faustina_prova1.entity.ClienteEntity;
 import jv.avaliacao1.gabriel_felix_faustina_prova1.entity.ReservaEntity;
 import jv.avaliacao1.gabriel_felix_faustina_prova1.repository.ClienteRepository;
+import jv.avaliacao1.gabriel_felix_faustina_prova1.repository.ReservaRepository;
 import jv.avaliacao1.gabriel_felix_faustina_prova1.service.ClienteService;
 
 @Service
@@ -16,6 +17,9 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private ReservaRepository reservaRepository;
 
 	@Override
 	public ClienteEntity findClienteById(Long id) {
@@ -45,7 +49,7 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public List<ReservaDto> getReservas(Long id) {
-		List<ReservaEntity> reservasCliente = clienteRepository.findAllReservaByClienteId(id);
+		List<ReservaEntity> reservasCliente = reservaRepository.findAllReservaByClienteId(id);
 		return reservasCliente.stream().map(ReservaDto::new).toList();
 	}
 }
