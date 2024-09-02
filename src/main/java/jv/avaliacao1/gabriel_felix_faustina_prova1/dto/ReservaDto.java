@@ -17,6 +17,7 @@ public class ReservaDto {
 	private Integer numeroPessoas;
 	private Integer numeroMesa;
 	private StatusEnum status;
+	private Long idCliente;
 	
 	public ReservaDto(ReservaEntity entity) {
 		this.id = entity.getId();
@@ -24,5 +25,6 @@ public class ReservaDto {
 		this.numeroPessoas = entity.getNumeroPessoas();
 		this.numeroMesa = entity.getNumeroMesa();
 		this.status = entity.getStatus();
+		this.idCliente = entity.getCliente().getId();
 	}
 }

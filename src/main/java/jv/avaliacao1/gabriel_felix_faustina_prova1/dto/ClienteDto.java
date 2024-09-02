@@ -12,7 +12,6 @@ public class ClienteDto {
 	private Long id;
 	private String nome;
 	private String email;
-	private Long idReserva;
 	
 	public ClienteDto(ClienteEntity entity) {
 		this.id = entity.getId();
