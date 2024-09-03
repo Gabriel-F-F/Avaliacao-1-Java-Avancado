@@ -52,7 +52,6 @@ public class ReservaServiceImpl implements ReservaService {
 		}
 	}
 	
-	//TODO transformar em List
 	@Override
 	public String verificaMesaPorData(Integer numeroMesa, LocalDate data) {
 		ReservaEntity reserva = reservaRepository.findReservaByNumeroMesa(numeroMesa);
